@@ -110,22 +110,21 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, AcmfCodeContract
                 dateString = dateString.replace("-", "")
                 dateString = dateString.replace(":", "")
                 dateString = dateString.replace(" ", "")
-                Log.e("TAG", dateString)
+                dateString = BinaryChange.tenToHex(dateString.substring(0, 2).toInt()) +
+                        BinaryChange.tenToHex(dateString.substring(2, 4).toInt()) +
+                        BinaryChange.tenToHex(dateString.substring(4, 6).toInt()) +
+                        BinaryChange.tenToHex(dateString.substring(6, 8).toInt()) +
+                        BinaryChange.tenToHex(dateString.substring(8, 10).toInt()) +
+                        BinaryChange.tenToHex(dateString.substring(10, 12).toInt())
+
                 val hexA = dateString.substring(0, 8)
                 val hexB = dateString.substring(4, 12)
                 val intA = Integer.valueOf(hexA, 16)
                 val intB = Integer.valueOf(hexB, 16)
                 val countA = (intA.toFloat() - intB) / (intA + intB)
                 val thicken: String = Integer.toHexString(Float.floatToIntBits(countA))
-                var hexThicken = BinaryChange.addZeroForNum(thicken, 4)
-                var date = receivedData + activationCode +
-                        BinaryChange.tenToHex(dateString.substring(0, 2).toInt()) +
-                        BinaryChange.tenToHex(dateString.substring(2, 4).toInt()) +
-                        BinaryChange.tenToHex(dateString.substring(4, 6).toInt()) +
-                        BinaryChange.tenToHex(dateString.substring(6, 8).toInt()) +
-                        BinaryChange.tenToHex(dateString.substring(8, 10).toInt()) +
-                        BinaryChange.tenToHex(dateString.substring(10, 12).toInt()) +
-                        hexThicken
+                var hexThicken = BinaryChange.addZeroForNum(thicken, 8)
+                var date = receivedData + activationCode + dateString + hexThicken
                 val params = HashMap<String, String>()
                 params["received_data"] = receivedData
                 params["activation_code"] = activationCode
