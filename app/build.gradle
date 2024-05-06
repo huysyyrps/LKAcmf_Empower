@@ -61,4 +61,6 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:4.9.3'
     // gson解析，可以自行替换
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    //国家列表
+    implementation 'com.github.sahooz:country-region-picker-android:3.1.0'
 }

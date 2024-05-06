@@ -1,46 +1,42 @@
 package com.example.lkacmf_empower
 
 import android.Manifest
-import android.annotation.SuppressLint
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.bigkoo.pickerview.builder.TimePickerBuilder
-import com.example.lkacmf_empower.entity.AcmfCode
-import com.example.lkacmf_empower.entity.UpAcmfCode
-import com.example.lkacmf_empower.module.AcmfCodeContract
-import com.example.lkacmf_empower.presenter.AcmfCodePresenter
 import com.google.gson.Gson
 import com.huawei.hms.hmsscankit.ScanUtil
 import com.huawei.hms.ml.scan.HmsScan
 import com.permissionx.guolindev.PermissionX
-import kotlinx.android.synthetic.main.activity_main.*
+import com.sahooz.library.countryregionpicker.PickFragment
+import kotlinx.android.synthetic.main.activity_main.btnSend
+import kotlinx.android.synthetic.main.activity_main.tvActivationCode
+import kotlinx.android.synthetic.main.activity_main.tvDate
+import kotlinx.android.synthetic.main.activity_main.tvReceivedData
+import kotlinx.android.synthetic.main.activity_qrdata_insert.iv_left
+import kotlinx.android.synthetic.main.activity_qrdata_insert.tvCountry
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
 import java.lang.Float
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Calendar
+import java.util.Date
 import kotlin.Int
 import kotlin.String
 import kotlin.booleanArrayOf
 
 
-class MainActivity : AppCompatActivity(), View.OnClickListener, AcmfCodeContract.View {
-
+class QrDataInsertActivity : AppCompatActivity(), View.OnClickListener {
+    var dateString = ""
     var receivedData = ""
     var activationCode = ""
-    var dateString = ""
-    lateinit var acmfCodePresenter:AcmfCodePresenter
-
-    @RequiresApi(Build.VERSION_CODES.S)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_qrdata_insert)
+
         val requestList = ArrayList<String>()
         requestList.add(Manifest.permission.CAMERA)
         requestList.add(Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -54,6 +50,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, AcmfCodeContract
 
         tvDate.setOnClickListener(this)
         btnSend.setOnClickListener(this)
+        iv_left.setOnClickListener(this)
+        tvCountry.setOnClickListener(this)
 
         if (requestList.isNotEmpty()) {
             PermissionX.init(this)
@@ -72,10 +70,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, AcmfCodeContract
                     }
                 }
         }
-        acmfCodePresenter = AcmfCodePresenter(this, view = this)
     }
 
-    @SuppressLint("SimpleDateFormat")
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.tvDate -> {
@@ -157,7 +153,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, AcmfCodeContract
                     "application/json; charset=utf-8".toMediaTypeOrNull(),
                     gson.toJson(params)
                 )
-                acmfCodePresenter.getAcmfCode(requestBody)
+//                acmfCodePresenter.getAcmfCode(requestBody)
+            }
+            R.id.iv_left->{
+                finish()
+            }
+            R.id.tvCountry->{
             }
         }
     }
@@ -184,14 +185,5 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, AcmfCodeContract
             }
         }
     }
-
-    override fun setAcmfCode(acmfCode: AcmfCode?) {
-        acmfCode?.activationCode?.showToast(this)
-    }
-
-    override fun setAcmfCodeMessage(message: String?) {
-        message?.showToast(this)
-    }
-
 
 }
