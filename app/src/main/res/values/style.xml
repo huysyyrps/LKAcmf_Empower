@@ -40,10 +40,10 @@
     <!-- 自定义横向分割线属性   -->
     <style name="HLine">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">1dp</item>
-        <item name="android:background">@color/theme_color</item>
-        <item name="android:layout_marginRight">5dp</item>
-        <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:layout_height">0.2dp</item>
+        <item name="android:background">@color/result_minor_text</item>
+<!--        <item name="android:layout_marginRight">2dp</item>-->
+<!--        <item name="android:layout_marginLeft">2dp</item>-->
         <item name="android:layout_gravity">center</item>
     </style>
     <!-- 自定义纵向分割线属性   -->

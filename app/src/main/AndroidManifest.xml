@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.lkacmf_empower">
 
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" /> <!-- 相机权限 -->
     <uses-permission android:name="android.permission.CAMERA" /> <!-- 读文件权限 -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -18,6 +19,9 @@
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -28,18 +32,25 @@
         android:theme="@style/NoAction"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".QrDataInsertActivity"
-            android:exported="false" />
+            android:name=".activity.PickCountryActivity"
+            android:exported="true" >
+        </activity>
         <activity
-            android:name=".QrDateInsertActivity"
+            android:name="com.sahooz.library.countryregionpicker.PickActivity"
             android:exported="false"
-            android:label="@string/title_activity_qr_date_insert"
-            android:theme="@style/NoAction" />
+            android:windowSoftInputMode="adjustPan" />
+<!--        <activity-->
+<!--            android:name=".activity.QrDataInsertActivity"-->
+<!--            android:exported="true">-->
+
+<!--        </activity>-->
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:exported="true">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>

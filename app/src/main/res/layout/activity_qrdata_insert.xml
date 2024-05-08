@@ -137,12 +137,13 @@
                 android:layout_marginBottom="5dp"
                 android:gravity="center_vertical"
                 android:paddingLeft="8dp"
-                android:text="授权国家"
+                android:text="设备编号"
                 android:textSize="14dp" />
 
             <TextView
-                android:id="@+id/tvCountry"
+                android:id="@+id/tvDeviceId"
                 style="@style/EditText"
+                android:hint="请输入设备编号"
                 android:layout_width="match_parent" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>

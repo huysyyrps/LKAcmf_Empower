@@ -2,8 +2,8 @@ package com.example.lkacmf_empower.presenter
 
 import android.content.Context
 import com.example.lkacmf_empower.R
-import com.example.lkacmf_empower.entity.AcmfCode
-import com.example.lkacmf_empower.module.AcmfCodeContract
+import com.example.lkacmf_empower.entity.QrDataInsertBack
+import com.example.lkacmf_empower.module.QrDataInsertContract
 import com.example.lkacmf_empower.network.BaseObserverNoEntry
 import com.example.lkacmf_empower.network.NetStat
 import com.example.lkacmf_empower.network.RetrofitUtil
@@ -12,34 +12,34 @@ import io.reactivex.schedulers.Schedulers
 import okhttp3.RequestBody
 
 
-class AcmfCodePresenter constructor(context : Context, view: AcmfCodeContract.View)  : AcmfCodeContract.presenter {
+class QrDataInsertPresenter constructor(context : Context, view: QrDataInsertContract.View)  : QrDataInsertContract.presenter {
 
     var context: Context = context
-    var view: AcmfCodeContract.View = view
+    var view: QrDataInsertContract.View = view
 
 
-    override fun getAcmfCode(company: RequestBody?) {
-        RetrofitUtil().getInstanceRetrofit()?.initRetrofitMain()?.getVersionInfo(company)
+    override fun insertQrData(company: RequestBody?) {
+        RetrofitUtil().getInstanceRetrofit()?.initRetrofitMain()?.insertQrData(company)
             ?.subscribeOn(Schedulers.io())
             ?.observeOn(AndroidSchedulers.mainThread())
-            ?.subscribe(object : BaseObserverNoEntry<AcmfCode?>(
+            ?.subscribe(object : BaseObserverNoEntry<QrDataInsertBack?>(
                 context!!,
                 context!!.resources.getString(R.string.handler_data)
             ) {
 
-                override fun onSuccees(t: AcmfCode?) {
+                override fun onSuccees(t: QrDataInsertBack?) {
                     if (t?.state == 200) {
-                        view.setAcmfCode(t)
+                        view.setQrDataInsert(t)
                     } else {
-                        view.setAcmfCodeMessage(context.resources.getString(R.string.date_error))
+                        view.setQrDataInsertMessage(context.resources.getString(R.string.date_error))
                     }
                 }
 
                 override fun onFailure(e: Throwable?, isNetWorkError: Boolean) {
                     if (NetStat.isNetworkConnected(context)) {
-                        view.setAcmfCodeMessage("" + e!!.message)
+                        view.setQrDataInsertMessage("" + e!!.message)
                     } else {
-                        view.setAcmfCodeMessage(context.resources.getString(R.string.net_error))
+                        view.setQrDataInsertMessage(context.resources.getString(R.string.net_error))
                     }
                 }
             })

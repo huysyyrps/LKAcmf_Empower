@@ -3,5 +3,6 @@
     <string name="handler_data">数据请求中...</string>
     <string name="date_error">授权码生成失败</string>
     <string name="net_error">网络异常</string>
+    <string name="deviceid_null">设备编号不能为空</string>
     <string name="title_activity_qr_date_insert">QrDateInsertActivity</string>
 </resources>
